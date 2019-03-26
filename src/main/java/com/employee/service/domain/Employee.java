@@ -6,8 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -27,7 +26,7 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
+
     @Column(name = "email", unique = true)
     private String email;
 
@@ -36,15 +35,15 @@ public class Employee implements Serializable {
     private String fullName;
 
     @Column(name = "birth_day")
-    private Instant birthDay;
+    private LocalDate birthDay;
 
     @CreationTimestamp
     @Column(name = "created_date")
-    private LocalDate createdDate;
+    private Instant createdDate;
 
     @UpdateTimestamp
     @Column(name = "modified_date")
-    private LocalDate modifiedDate;
+    private Instant modifiedDate;
 
     @ManyToOne
     @JsonIgnoreProperties("employees")
@@ -85,42 +84,42 @@ public class Employee implements Serializable {
         this.fullName = fullName;
     }
 
-    public Instant getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public Employee birthDay(Instant birthDay) {
+    public Employee birthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
         return this;
     }
 
-    public void setBirthDay(Instant birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 
-    public LocalDate getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public Employee createdDate(LocalDate createdDate) {
+    public Employee createdDate(Instant createdDate) {
         this.createdDate = createdDate;
         return this;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public LocalDate getModifiedDate() {
+    public Instant getModifiedDate() {
         return modifiedDate;
     }
 
-    public Employee modifiedDate(LocalDate modifiedDate) {
+    public Employee modifiedDate(Instant modifiedDate) {
         this.modifiedDate = modifiedDate;
         return this;
     }
 
-    public void setModifiedDate(LocalDate modifiedDate) {
+    public void setModifiedDate(Instant modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 

@@ -55,7 +55,7 @@ management:
 
 spring:
     application:
-        name: EmployeeService
+        name: employee-service
     profiles:
         # The commented value for `active` can be replaced with valid Spring profiles to load.
         # Otherwise, it will be filled in by gradle when building the WAR file
@@ -133,3 +133,10 @@ jhipster:
 # ===================================================================
 
 # application:
+application:
+    messages:
+        101: Email Not Found.
+        102: No such department Associated.
+        103: Employee already existing in the database, bad request
+        104: Employee doesn't exist to update the record.
+        200: Identifier

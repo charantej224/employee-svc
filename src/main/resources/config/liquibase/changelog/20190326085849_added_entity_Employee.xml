@@ -30,15 +30,15 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="birth_day" type="datetime">
+            <column name="birth_day" type="date">
                 <constraints nullable="true" />
             </column>
 
-            <column name="created_date" type="date">
+            <column name="created_date" type="datetime">
                 <constraints nullable="true" />
             </column>
 
-            <column name="modified_date" type="date">
+            <column name="modified_date" type="datetime">
                 <constraints nullable="true" />
             </column>
 
@@ -48,7 +48,8 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="employee" columnName="birth_day" columnDataType="datetime"/>
+        <dropDefaultValue tableName="employee" columnName="created_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="employee" columnName="modified_date" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

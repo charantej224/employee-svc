@@ -1,16 +1,18 @@
 package com.employee.service.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * The Department entity.
@@ -31,11 +33,11 @@ public class Department implements Serializable {
 
     @CreationTimestamp
     @Column(name = "created_date")
-    private LocalDate createdDate;
+    private Instant createdDate;
 
     @UpdateTimestamp
     @Column(name = "modified_date")
-    private LocalDate modifiedDate;
+    private Instant modifiedDate;
 
     /**
      * one department can be associated with multiple employees.
@@ -43,7 +45,6 @@ public class Department implements Serializable {
     @ApiModelProperty(value = "one department can be associated with multiple employees.")
     @OneToMany(mappedBy = "department")
     private Set<Employee> employees = new HashSet<>();
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -66,29 +67,29 @@ public class Department implements Serializable {
         this.name = name;
     }
 
-    public LocalDate getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public Department createdDate(LocalDate createdDate) {
+    public Department createdDate(Instant createdDate) {
         this.createdDate = createdDate;
         return this;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public LocalDate getModifiedDate() {
+    public Instant getModifiedDate() {
         return modifiedDate;
     }
 
-    public Department modifiedDate(LocalDate modifiedDate) {
+    public Department modifiedDate(Instant modifiedDate) {
         this.modifiedDate = modifiedDate;
         return this;
     }
 
-    public void setModifiedDate(LocalDate modifiedDate) {
+    public void setModifiedDate(Instant modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 

@@ -3,8 +3,8 @@
  */
 entity Department {
 	name String,
-    createdDate LocalDate,
-    modifiedDate LocalDate
+    createdDate Instant,
+    modifiedDate Instant
 }
 
 /**
@@ -13,9 +13,9 @@ entity Department {
 entity Employee {
 	email String unique,
 	fullName String required,
-	birthDay Instant,
-    createdDate LocalDate,
-    modifiedDate LocalDate
+	birthDay LocalDate,
+    createdDate Instant,
+    modifiedDate Instant
 }
 
 // defining multiple OneToMany relationships with comments
