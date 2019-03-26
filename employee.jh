@@ -1,0 +1,27 @@
+/**
+ * The Department entity.
+ */
+entity Department {
+	name String,
+    createdDate LocalDate,
+    modifiedDate LocalDate
+}
+
+/**
+ * The Employee entity.
+ */
+entity Employee {
+	email String unique,
+	fullName String required,
+	birthDay Instant,
+    createdDate LocalDate,
+    modifiedDate LocalDate
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+    /**
+    one department can be associated with multiple employees.
+    */
+	Department to Employee
+}
