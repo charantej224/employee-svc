@@ -1,0 +1,32 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.employee.service"
+    },
+    "jhipsterVersion": "5.7.0",
+    "applicationType": "microservice",
+    "baseName": "EmployeeService",
+    "packageName": "com.employee.service",
+    "packageFolder": "com/employee/service",
+    "serverPort": "9094",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "Nzc1NTBkZjk1MTMwYzMwODNhMjI2YWU4NDBiZDg4NGIxMjZlNGIxYTI1NzdkNDUxNWNkYmM2YmJmOGIxZThlOTk3YjVjYjA4MDEwMmQwMjMyYThlODBkOWJjNGFkZmQ5ZjkxYWY4OWE5YTA5NmM3YTYwNGYwZDZkNDMyZDNiZDg=",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
