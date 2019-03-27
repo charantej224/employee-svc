@@ -31,10 +31,12 @@ public class Department implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @CreationTimestamp
     @Column(name = "created_date")
     private Instant createdDate;
 
+    @JsonIgnore
     @UpdateTimestamp
     @Column(name = "modified_date")
     private Instant modifiedDate;
@@ -42,6 +44,7 @@ public class Department implements Serializable {
     /**
      * one department can be associated with multiple employees.
      */
+    @JsonIgnore
     @ApiModelProperty(value = "one department can be associated with multiple employees.")
     @OneToMany(mappedBy = "department")
     private Set<Employee> employees = new HashSet<>();

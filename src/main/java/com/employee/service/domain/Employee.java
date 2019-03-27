@@ -1,5 +1,6 @@
 package com.employee.service.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,14 +38,17 @@ public class Employee implements Serializable {
     @Column(name = "birth_day")
     private LocalDate birthDay;
 
+    @JsonIgnore
     @CreationTimestamp
     @Column(name = "created_date")
     private Instant createdDate;
 
+    @JsonIgnore
     @UpdateTimestamp
     @Column(name = "modified_date")
     private Instant modifiedDate;
 
+    @JsonIgnore
     @ManyToOne
     @JsonIgnoreProperties("employees")
     private Department department;
