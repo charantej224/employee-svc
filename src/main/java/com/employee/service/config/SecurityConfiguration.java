@@ -1,19 +1,22 @@
 package com.employee.service.config;
 
-import com.employee.service.security.*;
-import com.employee.service.security.jwt.*;
-
+import com.employee.service.security.AuthoritiesConstants;
+import com.employee.service.security.jwt.JWTAuthenticationFilter;
+import com.employee.service.security.jwt.JWTAuthorizationFilter;
+import com.employee.service.service.UserDetailsImplService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 @Configuration
@@ -22,13 +25,13 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final TokenProvider tokenProvider;
+    private final UserDetailsImplService userDetailsService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final SecurityProblemSupport problemSupport;
 
-    public SecurityConfiguration(TokenProvider tokenProvider, SecurityProblemSupport problemSupport) {
-        this.tokenProvider = tokenProvider;
-        this.problemSupport = problemSupport;
+    public SecurityConfiguration(UserDetailsImplService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
             .antMatchers(HttpMethod.OPTIONS, "/**")
             .antMatchers("/swagger-ui/index.html")
@@ -51,28 +54,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf()
             .disable()
             .exceptionHandling()
-            .authenticationEntryPoint(problemSupport)
-            .accessDeniedHandler(problemSupport)
-        .and()
+            .and()
             .headers()
             .frameOptions()
             .disable()
-        .and()
+            .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
+            .and()
             .authorizeRequests()
             .antMatchers("/api/**").authenticated()
-            .antMatchers("/login").permitAll()
+            .antMatchers("/sign-up").permitAll()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/info").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-        .and()
-            .apply(securityConfigurerAdapter());
+            .and()
+            .addFilter(new JWTAuthenticationFilter(authenticationManagerBean()))
+            .addFilter(new JWTAuthorizationFilter(authenticationManagerBean()))
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }
 
-    private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider);
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
+
+//    private JWTConfigurer securityConfigurerAdapter() {
+//        return new JWTConfigurer(tokenProvider);
+//    }
 }

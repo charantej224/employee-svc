@@ -35,14 +35,5 @@
             <column name="created_date" value="now()" />
             <column name="modified_date" value="now()" />
         </insert>
-
-        <insert tableName="user_details">
-            <column name="user_name">admin</column>
-            <column name="jhi_password">admin</column>
-        </insert>
-        <insert tableName="user_details">
-            <column name="user_name">admin1</column>
-            <column name="jhi_password">admin1</column>
-        </insert>
     </changeSet>
 </databaseChangeLog>
