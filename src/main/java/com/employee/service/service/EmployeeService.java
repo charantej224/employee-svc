@@ -4,6 +4,7 @@ import com.employee.service.config.ApplicationProperties;
 import com.employee.service.config.CRUD_OPERATIONS;
 import com.employee.service.domain.Department;
 import com.employee.service.domain.Employee;
+import com.employee.service.domain.EventMessage;
 import com.employee.service.repository.CustomDepartmentRepository;
 import com.employee.service.repository.CustomEmployeeRepository;
 import com.employee.service.request.domain.EmployeeRequest;
@@ -35,6 +36,9 @@ public class EmployeeService {
 
     @Autowired
     CustomDepartmentRepository departmentRepository;
+
+    @Autowired
+    EventMessageService eventMessageService;
 
     private static Logger logger = LoggerFactory.getLogger(EmployeeService.class);
 
@@ -68,6 +72,7 @@ public class EmployeeService {
             employeeEntity.setDepartment(department.get());
             employeeEntity.setFullName(employeeRequest.getFullName());
             employeeEntity.setBirthDay(EmployeeServiceUtils.getLocalDate(employeeRequest.getBirthDay()));
+            eventMessageService.sendMessage(new EventMessage(employeeRequest.getEmail(),operations.name()));
             employeeEntity = employeeRepository.save(employeeEntity);
             genericMessage = new GenericMessage(MESSAGE_200, applicationProperties.getMessages().get(MESSAGE_200) + employeeEntity.getId());
             return ResponseEntity.ok().headers(httpHeaders).body(genericMessage);
