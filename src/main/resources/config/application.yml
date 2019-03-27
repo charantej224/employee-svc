@@ -139,4 +139,5 @@ application:
         102: No such department Associated.
         103: Employee already existing in the database, bad request
         104: Employee doesn't exist to update the record.
+        105: invlalid login credentials.
         200: Identifier

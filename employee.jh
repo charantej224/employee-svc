@@ -18,6 +18,11 @@ entity Employee {
     modifiedDate Instant
 }
 
+entity UserDetails {
+    userName String unique,
+    password String
+}
+
 // defining multiple OneToMany relationships with comments
 relationship OneToMany {
     /**
