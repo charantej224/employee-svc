@@ -83,4 +83,29 @@ public class EmployeeService {
         }
     }
 
+    public ResponseEntity<GenericMessage> getEmployee(Long id){
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if(employee.isPresent()){
+            eventMessageService.sendMessage(new EventMessage(employee.get().getEmail(),CRUD_OPERATIONS.READ.name()));
+            GenericMessage<Employee> genericMessage = new GenericMessage<>(MESSAGE_200,employee.get());
+            return ResponseEntity.ok().headers(httpHeaders).body(genericMessage);
+        } else {
+            GenericMessage<String> genericMessage = new GenericMessage(MESSAGE_105, applicationProperties.getMessages().get(MESSAGE_105));
+            return ResponseEntity.badRequest().headers(httpHeaders).body(genericMessage);
+        }
+    }
+
+    public ResponseEntity<GenericMessage> deleteEmployee(Long id){
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if(employee.isPresent()){
+            eventMessageService.sendMessage(new EventMessage(employee.get().getEmail(),CRUD_OPERATIONS.DELETE.name()));
+            employeeRepository.deleteById(id);
+            GenericMessage<Employee> genericMessage = new GenericMessage<>(applicationProperties.getMessages().get(MESSAGE_106),employee.get());
+            return ResponseEntity.ok().headers(httpHeaders).body(genericMessage);
+        } else {
+            GenericMessage<String> genericMessage = new GenericMessage(applicationProperties.getMessages().get(MESSAGE_105), applicationProperties.getMessages().get(MESSAGE_105));
+            return ResponseEntity.badRequest().headers(httpHeaders).body(genericMessage);
+        }
+    }
+
 }

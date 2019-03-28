@@ -140,9 +140,11 @@ jhipster:
 # application:
 application:
     messages:
+        100: Success
         101: Email Not Found.
         102: No such department Associated.
         103: Employee already existing in the database, bad request
         104: Employee doesn't exist to update the record.
-        105: invlalid login credentials.
+        105: No such employee in the records.
+        106: Record Deleted Successfully.
         200: Identifier

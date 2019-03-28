@@ -86,10 +86,9 @@ public class EmployeeResource {
      */
     @GetMapping("/employees/{id}")
     @Timed
-    public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
+    public ResponseEntity<GenericMessage> getEmployee(@PathVariable Long id) {
         log.debug("REST request to get Employee : {}", id);
-        Optional<Employee> employee = employeeRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(employee);
+        return employeeService.getEmployee(id);
     }
 
     /**
@@ -100,9 +99,8 @@ public class EmployeeResource {
      */
     @DeleteMapping("/employees/{id}")
     @Timed
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<GenericMessage> deleteEmployee(@PathVariable Long id) {
         log.debug("REST request to delete Employee : {}", id);
-        employeeRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return employeeService.deleteEmployee(id);
     }
 }

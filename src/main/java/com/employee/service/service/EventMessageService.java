@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 public class EventMessageService {
 
     @Autowired
-    RabbitTemplate rabbitTemplate;
+    private RabbitTemplate rabbitTemplate;
 
     public void sendMessage(EventMessage eventMessage){
         rabbitTemplate.convertAndSend(ApplicationConfiguration.EVENT_QUEUE,eventMessage);
     }
-
-
 }
