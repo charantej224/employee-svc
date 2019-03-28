@@ -148,3 +148,6 @@ application:
         105: No such employee in the records.
         106: Record Deleted Successfully.
         200: Identifier
+
+queue:
+    event-queue: event-queue
