@@ -1,22 +1,24 @@
 package com.employee.service.web.rest;
 
-import com.employee.service.domain.Employee;
+import com.employee.service.config.CRUD_OPERATIONS;
 import com.employee.service.repository.CustomEmployeeRepository;
 import com.employee.service.request.domain.EmployeeRequest;
 import com.employee.service.request.domain.GenericMessage;
 import com.employee.service.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EmployeeResourceTest {
 
     @Mock
@@ -27,60 +29,52 @@ public class EmployeeResourceTest {
     @InjectMocks
     private EmployeeResource employeeResourceUnderTest;
 
+    EmployeeRequest employeeRequest;
+
     @Before
     public void setUp() {
+        employeeRequest = new EmployeeRequest();
         initMocks(this);
+        GenericMessage<String> genericMessage = new GenericMessage<>("OK", "OK");
+        when(mockEmployeeService.getEmployee(1L)).thenReturn(new ResponseEntity<>(genericMessage, HttpStatus.OK));
+        when(mockEmployeeService.deleteEmployee(1L)).thenReturn(new ResponseEntity<>(genericMessage, HttpStatus.OK));
+        when(mockEmployeeService.saveEmployee(employeeRequest, CRUD_OPERATIONS.CREATE)).thenReturn((new ResponseEntity<>(genericMessage, HttpStatus.OK)));
+        when(mockEmployeeService.saveEmployee(employeeRequest, CRUD_OPERATIONS.UPDATE)).thenReturn((new ResponseEntity<>(genericMessage, HttpStatus.OK)));
+
     }
 
     @Test
     public void testCreateEmployee() {
-        // Setup
-        final EmployeeRequest employeeRequest = null;
-        final ResponseEntity<GenericMessage> expectedResult = null;
-
-        // Run the test
         final ResponseEntity<GenericMessage> result = employeeResourceUnderTest.createEmployee(employeeRequest);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals("OK", result.getBody().getMessageBody());
+        assertEquals("OK", result.getBody().getMessage());
 
-        // Verify the results
-        assertEquals(expectedResult, result);
+
     }
 
     @Test
     public void testUpdateEmployee() {
-        // Setup
-        final EmployeeRequest employeeRequest = null;
-        final ResponseEntity<GenericMessage> expectedResult = null;
-
-        // Run the test
         final ResponseEntity<GenericMessage> result = employeeResourceUnderTest.updateEmployee(employeeRequest);
-
-        // Verify the results
-        assertEquals(expectedResult, result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals("OK", result.getBody().getMessageBody());
+        assertEquals("OK", result.getBody().getMessage());
     }
 
     @Test
     public void testGetEmployee() {
-        // Setup
-        final Long id = 0L;
-        final ResponseEntity<GenericMessage> expectedResult = null;
-
-        // Run the test
+        final Long id = 1L;
         final ResponseEntity<GenericMessage> result = employeeResourceUnderTest.getEmployee(id);
-
-        // Verify the results
-        assertEquals(expectedResult, result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals("OK", ((GenericMessage<String>) result.getBody()).getMessage());
+        assertEquals("OK", ((GenericMessage<String>) result.getBody()).getMessageBody());
     }
 
     @Test
     public void testDeleteEmployee() {
-        // Setup
-        final Long id = 0L;
-        final ResponseEntity<GenericMessage> expectedResult = null;
-
-        // Run the test
-        final ResponseEntity<GenericMessage> result = employeeResourceUnderTest.deleteEmployee(id);
-
-        // Verify the results
-        assertEquals(expectedResult, result);
+        final ResponseEntity<GenericMessage> result = employeeResourceUnderTest.deleteEmployee(1L);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals("OK", ((GenericMessage<String>) result.getBody()).getMessage());
+        assertEquals("OK", ((GenericMessage<String>) result.getBody()).getMessageBody());
     }
 }

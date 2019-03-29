@@ -24,7 +24,7 @@ public class UserDetailsResource {
         GenericMessage<String> genericMessage;
         userDetails.setPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
         userDetailsRepository.save(userDetails);
-        genericMessage = new GenericMessage<>("usercreated","");
+        genericMessage = new GenericMessage<>("user created","");
         return ResponseEntity.ok().body(genericMessage);
     }
 }

@@ -7,12 +7,12 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class DepartmentResourceTest {
@@ -28,69 +28,24 @@ public class DepartmentResourceTest {
     @Before
     public void setUp() {
         initMocks(this);
+        Department mockedDepartment = new Department();
+        mockedDepartment.setName("mockedDepartment");
+        when(mockDepartmentRepository.save(any(Department.class))).thenReturn(mockedDepartment);
+        when(mockDepartmentRepository.save(null)).thenThrow(new NullPointerException());
+
     }
 
     @Test
-    public void testCreateDepartment() throws Exception {
-        // Setup
-        final Department department = null;
-        final ResponseEntity<Department> expectedResult = null;
-
-        // Run the test
+    public void testCreateDepartment_validInputs() throws Exception {
+        Department department = new Department();
+        department.setName("Consulting");
         final ResponseEntity<Department> result = departmentResourceUnderTest.createDepartment(department);
-
-        // Verify the results
-        assertEquals(expectedResult, result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals("mockedDepartment", result.getBody().getName());
     }
 
-    @Test
-    public void testUpdateDepartment() throws Exception {
-        // Setup
-        final Department department = null;
-        final ResponseEntity<Department> expectedResult = null;
-
-        // Run the test
-        final ResponseEntity<Department> result = departmentResourceUnderTest.updateDepartment(department);
-
-        // Verify the results
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void testGetAllDepartments() {
-        // Setup
-        final List<Department> expectedResult = Arrays.asList();
-
-        // Run the test
-        final List<Department> result = departmentResourceUnderTest.getAllDepartments();
-
-        // Verify the results
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void testGetDepartment() {
-        // Setup
-        final Long id = 0L;
-        final ResponseEntity<Department> expectedResult = null;
-
-        // Run the test
-        final ResponseEntity<Department> result = departmentResourceUnderTest.getDepartment(id);
-
-        // Verify the results
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void testDeleteDepartment() {
-        // Setup
-        final Long id = 0L;
-        final ResponseEntity<Void> expectedResult = null;
-
-        // Run the test
-        final ResponseEntity<Void> result = departmentResourceUnderTest.deleteDepartment(id);
-
-        // Verify the results
-        assertEquals(expectedResult, result);
+    @Test(expected = NullPointerException.class)
+    public void testCreateDepartment_throwsException() throws Exception {
+        departmentResourceUnderTest.createDepartment(null);
     }
 }
