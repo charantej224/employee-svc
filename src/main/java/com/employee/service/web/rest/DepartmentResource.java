@@ -3,17 +3,15 @@ package com.employee.service.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.employee.service.domain.Department;
 import com.employee.service.repository.DepartmentRepository;
-import com.employee.service.web.rest.errors.BadRequestAlertException;
-import com.employee.service.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +26,11 @@ public class DepartmentResource {
 
     private static final String ENTITY_NAME = "employeeServiceDepartment";
 
-    private final DepartmentRepository departmentRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
-    public DepartmentResource(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
-    }
+    @Autowired
+    private HttpHeaders httpHeaders;
 
     /**
      * POST  /departments : Create a new department.
@@ -45,13 +43,8 @@ public class DepartmentResource {
     @Timed
     public ResponseEntity<Department> createDepartment(@RequestBody Department department) throws URISyntaxException {
         log.debug("REST request to save Department : {}", department);
-        if (department.getId() != null) {
-            throw new BadRequestAlertException("A new department cannot already have an ID", ENTITY_NAME, "idexists");
-        }
         Department result = departmentRepository.save(department);
-        return ResponseEntity.created(new URI("/api/departments/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(httpHeaders).body(result);
     }
 
     /**
@@ -67,13 +60,8 @@ public class DepartmentResource {
     @Timed
     public ResponseEntity<Department> updateDepartment(@RequestBody Department department) throws URISyntaxException {
         log.debug("REST request to update Department : {}", department);
-        if (department.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
         Department result = departmentRepository.save(department);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, department.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(httpHeaders).body(result);
     }
 
     /**
@@ -112,8 +100,7 @@ public class DepartmentResource {
     @Timed
     public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
         log.debug("REST request to delete Department : {}", id);
-
         departmentRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(httpHeaders).build();
     }
 }
