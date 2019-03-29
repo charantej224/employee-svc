@@ -281,8 +281,7 @@ jacocoTestReport {
                 ],
                 includes: [
                     '**/web/rest/**',
-                    '**/service/service/**',
-                    '**/service/security/jwt/**'
+                    '**/service/service/**'
                 ])
 
         })
