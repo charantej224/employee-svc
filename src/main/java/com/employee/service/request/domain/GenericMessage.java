@@ -23,4 +23,12 @@ public class GenericMessage<T> {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public T getMessageBody() {
+        return messageBody;
+    }
+
+    public void setMessageBody(T messageBody) {
+        this.messageBody = messageBody;
+    }
 }

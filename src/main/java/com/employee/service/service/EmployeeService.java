@@ -26,19 +26,19 @@ import static com.employee.service.config.Constants.*;
 public class EmployeeService {
 
     @Autowired
-    HttpHeaders httpHeaders;
+    private HttpHeaders httpHeaders;
 
     @Autowired
-    ApplicationProperties applicationProperties;
+    private ApplicationProperties applicationProperties;
 
     @Autowired
-    CustomEmployeeRepository employeeRepository;
+    private CustomEmployeeRepository employeeRepository;
 
     @Autowired
-    CustomDepartmentRepository departmentRepository;
+    private CustomDepartmentRepository departmentRepository;
 
     @Autowired
-    EventMessageService eventMessageService;
+    private EventMessageService eventMessageService;
 
     private static Logger logger = LoggerFactory.getLogger(EmployeeService.class);
 
@@ -67,7 +67,6 @@ public class EmployeeService {
             } else if (employee.isPresent() && CRUD_OPERATIONS.UPDATE.equals(operations)) {
                 employeeEntity = employee.get();
             }
-
             employeeEntity.setEmail(employeeRequest.getEmail());
             employeeEntity.setDepartment(department.get());
             employeeEntity.setFullName(employeeRequest.getFullName());
@@ -103,7 +102,7 @@ public class EmployeeService {
             GenericMessage<Employee> genericMessage = new GenericMessage<>(applicationProperties.getMessages().get(MESSAGE_106),employee.get());
             return ResponseEntity.ok().headers(httpHeaders).body(genericMessage);
         } else {
-            GenericMessage<String> genericMessage = new GenericMessage(applicationProperties.getMessages().get(MESSAGE_105), applicationProperties.getMessages().get(MESSAGE_105));
+            GenericMessage<String> genericMessage = new GenericMessage(MESSAGE_105, applicationProperties.getMessages().get(MESSAGE_105));
             return ResponseEntity.badRequest().headers(httpHeaders).body(genericMessage);
         }
     }

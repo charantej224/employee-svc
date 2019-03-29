@@ -2,7 +2,6 @@ package com.employee.service.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.employee.service.config.CRUD_OPERATIONS;
-import com.employee.service.domain.Employee;
 import com.employee.service.repository.CustomEmployeeRepository;
 import com.employee.service.request.domain.EmployeeRequest;
 import com.employee.service.request.domain.GenericMessage;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * REST controller for managing Employee.
@@ -25,8 +23,6 @@ import java.util.List;
 public class EmployeeResource {
 
     private final Logger log = LoggerFactory.getLogger(EmployeeResource.class);
-
-    private static final String ENTITY_NAME = "employeeServiceEmployee";
 
     @Autowired
     private CustomEmployeeRepository employeeRepository;
@@ -61,18 +57,6 @@ public class EmployeeResource {
     @Timed
     public ResponseEntity<GenericMessage> updateEmployee(@Valid @RequestBody EmployeeRequest employeeRequest) {
         return employeeService.saveEmployee(employeeRequest, CRUD_OPERATIONS.UPDATE);
-    }
-
-    /**
-     * GET  /employees : get all the employees.
-     *
-     * @return the ResponseEntity with status 200 (OK) and the list of employees in body
-     */
-    @GetMapping("/employees")
-    @Timed
-    public List<Employee> getAllEmployees() {
-        log.debug("REST request to get all Employees");
-        return employeeRepository.findAll();
     }
 
     /**

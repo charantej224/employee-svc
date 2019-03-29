@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserDetailsResource {
 
     @Autowired
-    CustomUserDetailsRepository userDetailsRepository;
+    private CustomUserDetailsRepository userDetailsRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/sign-up")
     public ResponseEntity<GenericMessage> signUpUser(@RequestBody UserDetails userDetails){

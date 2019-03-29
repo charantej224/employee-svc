@@ -2,14 +2,21 @@ package com.employee.service.request.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotBlank;
+
 public class EmployeeRequest {
 
+    @NotBlank(message = "Email cannot be null")
     @JsonProperty("email")
     private String email;
+
     @JsonProperty("fullName")
     private String fullName;
+
     @JsonProperty("birthDay")
     private String birthDay;
+
+    @NotBlank(message = "Department cannot be null")
     @JsonProperty("departmentName")
     private String departmentName;
 

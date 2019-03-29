@@ -16,7 +16,7 @@ import static java.util.Collections.emptyList;
 public class UserDetailsImplService implements UserDetailsService {
 
     @Autowired
-    CustomUserDetailsRepository userDetailsRepository;
+    private CustomUserDetailsRepository userDetailsRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
