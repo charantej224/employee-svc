@@ -1,91 +1,46 @@
 # EmployeeService
-This application was generated using JHipster 5.7.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.7.0](https://www.jhipster.tech/documentation-archive/v5.7.0).
+Employee service to perform CRUD operations on the employee database.
+## Running the application
 
-This is a "microservice" application intended to be part of a microservice architecture, please refer to the [Doing microservices with JHipster][] page of the documentation for more information.
+###### 1. clone employee service using below command
+git clone https://github.com/charantej224/employee-svc.git
 
-This application is configured for Service Discovery and Configuration with . On launch, it will refuse to start if it is not able to connect to .
+###### 2. change the directory
+cd employee-svc/
 
-## Development
+###### 3. Build,compile,tests the application
+./gradlew build
+* view jacoco test coverage reports at path  *
+./build/reports/jacoco/test/html/index.html
+Note: Only Service and controllers are covered as part of test coverage.
 
-To start your application in the dev profile, simply run:
+###### 4. Run the application
+./gradlew
 
-    
+Swagger API contracts:
+http://localhost:9094/employee-service/v2/api-docs
 
+## Testing the application:
+** Note: Before proceding this step, event service "Running the application" steps are to be completed. **
+curl commands (referred below) available at : curl.txt
 
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
+* step1: signup user, un-secured route, use CURL command 1 from the text file.
+* step2: login the user, un-secured route, but credentials authenticated. use CURL command 2. 
+    - Note: Secure the token returned in the header as response after successful authentication.
+* step3: use the bearer token returned from step2, to create department. use CURL command 3.
+* step4: use the bearer token returned from step3, to create employee. use CURL command 4.
+* step5: use the bearer token returned from step4, to update employee, user CURL command 5.
+* step6: use the bearer token returned from step5, to get the employee, use CURL command 6.
+* step7: use the bearer token returned from step6, to delete the employee, use CURL command 7.
 
+Negative tests:
+* try testing without bearer token.
+* try updating non-existant user.
+* try creating an existing user.
+* try sending no employee email.
 
+###### additional: sonar reports if required:
 
-## Building for production
-
-To optimize the EmployeeService application for production, run:
-
-
-To ensure everything worked, run:
-
-
-
-Refer to [Using JHipster in production][] for more details.
-
-## Testing
-
-To launch your application's tests, run:
-
-    ./gradlew test
-
-For more information, refer to the [Running tests page][].
-
-### Code quality
-
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
-
-```
 docker-compose -f src/main/docker/sonar.yml up -d
-```
 
-Then, run a Sonar analysis:
-
-```
 ./gradlew -Pprod clean test sonarqube
-```
-
-For more information, refer to the [Code quality page][].
-
-## Using Docker to simplify development (optional)
-
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
-
-For example, to start a  database in a docker container, run:
-
-    docker-compose -f src/main/docker/.yml up -d
-
-To stop it and remove the container, run:
-
-    docker-compose -f src/main/docker/.yml down
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
-
-    
-
-Then run:
-
-    docker-compose -f src/main/docker/app.yml up -d
-
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
-
-## Continuous Integration (optional)
-
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
-
-[JHipster Homepage and latest documentation]: https://www.jhipster.tech
-[JHipster 5.7.0 archive]: https://www.jhipster.tech/documentation-archive/v5.7.0
-[Doing microservices with JHipster]: https://www.jhipster.tech/documentation-archive/v5.7.0/microservices-architecture/
-[Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v5.7.0/development/
-[Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v5.7.0/docker-compose
-[Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v5.7.0/production/
-[Running tests page]: https://www.jhipster.tech/documentation-archive/v5.7.0/running-tests/
-[Code quality page]: https://www.jhipster.tech/documentation-archive/v5.7.0/code-quality/
-[Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v5.7.0/setting-up-ci/
-
-
