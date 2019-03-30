@@ -94,7 +94,7 @@ curl -X PUT \
 * step6: use the bearer token returned from step5, to get the employee, use CURL command 6.
 ```
 curl -X GET \
-  http://localhost:9094/employee-service/api/employees/6 \
+  http://localhost:9094/employee-service/api/employees/1 \
   -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDYxODU1OH0.LDSaoDtHQ5p8OuFrI7howleX7nLDiNrPrQiznBn45GwFOS5fNYs5Rc0G3Rj5vFCILt1wXmojrIl86twwB4E2iA' \
   -H 'Postman-Token: 28cdb43e-3ce3-441b-aa40-81d96a109001' \
   -H 'cache-control: no-cache'
@@ -102,7 +102,7 @@ curl -X GET \
 * step7: use the bearer token returned from step6, to delete the employee, use CURL command 7.
 ```
 curl -X DELETE \
-  http://localhost:9094/employee-service/api/employees/6 \
+  http://localhost:9094/employee-service/api/employees/1 \
   -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDUzOTk2Mn0.Cua5wZeZqv08cNOk6ZdkVhnAwGED2Yom5uBt0VbKq2gmrwegjZQADhnbjZhq3UJdBMyeGiO-JXi_xSwo3ufgSQ,Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDYxODU1OH0.LDSaoDtHQ5p8OuFrI7howleX7nLDiNrPrQiznBn45GwFOS5fNYs5Rc0G3Rj5vFCILt1wXmojrIl86twwB4E2iA' \
   -H 'Postman-Token: cc26abf4-1448-4598-9f75-61bf6415902d,312f7c72-8cbf-467b-90d8-01dfd5bb9ae7' \
   -H 'cache-control: no-cache,no-cache'
