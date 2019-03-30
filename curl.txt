@@ -1,0 +1,81 @@
+1. signup user
+
+curl -X POST \
+  http://localhost:9094/employee-service/sign-up \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 24a781f6-68b8-47cc-999d-03b1fd804c9d' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"userName":"admin",
+	"password":"admin"
+}'
+
+2. login the user - returns jwt token.
+
+curl -X POST \
+  http://localhost:9094/employee-service/login \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: cb8a76ba-ca4e-4017-978b-c23b16cfbc79' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"userName":"admin",
+	"password":"admin"
+}'
+
+3. create department
+
+curl -X POST \
+  http://localhost:9094/employee-service/api/departments \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 84dd5df0-253a-4bca-9be3-6c7ef63632e5' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"name":"consulting"
+}'
+
+4. create employee
+
+curl -X POST \
+  http://localhost:9094/employee-service/api/employees \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDYxODU1OH0.LDSaoDtHQ5p8OuFrI7howleX7nLDiNrPrQiznBn45GwFOS5fNYs5Rc0G3Rj5vFCILt1wXmojrIl86twwB4E2iA' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 21b7a443-bae9-4c8c-9a1d-dbc98dd6ee9e' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"email":"charantej.career@gmail.com",
+	"fullName":"Charan Tej Thota",
+	"birthDay":"06.07.1988",
+	"departmentName":"consulting"
+}'
+
+5. update the employee 
+
+curl -X PUT \
+  http://localhost:9094/employee-service/api/employees \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDUzOTk2Mn0.Cua5wZeZqv08cNOk6ZdkVhnAwGED2Yom5uBt0VbKq2gmrwegjZQADhnbjZhq3UJdBMyeGiO-JXi_xSwo3ufgSQ,Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDYxODU1OH0.LDSaoDtHQ5p8OuFrI7howleX7nLDiNrPrQiznBn45GwFOS5fNYs5Rc0G3Rj5vFCILt1wXmojrIl86twwB4E2iA' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: dc639183-3270-475c-83d9-ce318cc30ffa,64b39a15-e64f-4cf7-9ba8-f8f1ef6fbd77' \
+  -H 'cache-control: no-cache,no-cache' \
+  -d '{
+	"email":"charantej.career@gmail.com",
+	"fullName":"Mr.Charan Tej Thota",
+	"birthDay":"07.07.1988",
+	"departmentName":"consulting"
+}'
+
+6. Reading the employee
+
+curl -X GET \
+  http://localhost:9094/employee-service/api/employees/6 \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDYxODU1OH0.LDSaoDtHQ5p8OuFrI7howleX7nLDiNrPrQiznBn45GwFOS5fNYs5Rc0G3Rj5vFCILt1wXmojrIl86twwB4E2iA' \
+  -H 'Postman-Token: 28cdb43e-3ce3-441b-aa40-81d96a109001' \
+  -H 'cache-control: no-cache'
+
+7. Deleting the employee
+
+curl -X DELETE \
+  http://localhost:9094/employee-service/api/employees/6 \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDUzOTk2Mn0.Cua5wZeZqv08cNOk6ZdkVhnAwGED2Yom5uBt0VbKq2gmrwegjZQADhnbjZhq3UJdBMyeGiO-JXi_xSwo3ufgSQ,Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NDYxODU1OH0.LDSaoDtHQ5p8OuFrI7howleX7nLDiNrPrQiznBn45GwFOS5fNYs5Rc0G3Rj5vFCILt1wXmojrIl86twwB4E2iA' \
+  -H 'Postman-Token: cc26abf4-1448-4598-9f75-61bf6415902d,312f7c72-8cbf-467b-90d8-01dfd5bb9ae7' \
+  -H 'cache-control: no-cache,no-cache'
+
