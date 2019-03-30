@@ -45,6 +45,7 @@ spring:
             hibernate.jdbc.time_zone: UTC
     liquibase:
         contexts: test
+        change-log: classpath:config/liquibase/master.xml
     mail:
         host: localhost
     messages:
@@ -82,7 +83,7 @@ jhipster:
         authentication:
             jwt:
                 # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-                base64-secret: Nzc1NTBkZjk1MTMwYzMwODNhMjI2YWU4NDBiZDg4NGIxMjZlNGIxYTI1NzdkNDUxNWNkYmM2YmJmOGIxZThlOTk3YjVjYjA4MDEwMmQwMjMyYThlODBkOWJjNGFkZmQ5ZjkxYWY4OWE5YTA5NmM3YTYwNGYwZDZkNDMyZDNiZDg=
+                base64-secret: MmU2N2M2ZTk0MjUwYzMyMjEzYzMwYzIxMzJjNDVjMzlkNjhjZWMwYWQyNjFjNTljYmZkOWQ2MDEyMzE4YjBmMDQyYTJhOGJiOWU2OGNkYzYyZDM2NzI2NjlmMmM2ZDYxZTk1ZDAwMGQ0ZTAwOGE2MjY1MzU1NzA5ZThjNzViNjU=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
@@ -101,3 +102,21 @@ jhipster:
 # ===================================================================
 
 # application:
+# application:
+application:
+    messages:
+        100: Success
+        101: Email Not Found.
+        102: No such department Associated.
+        103: Employee already existing in the database, bad request
+        104: Employee doesn't exist to update the record.
+        105: No such employee in the records.
+        106: Record Deleted Successfully.
+        200: Identifier
+
+queue:
+    event-queue: event-queue
+
+local:
+    server:
+        port: 52310
