@@ -12,7 +12,7 @@ cd employee-svc/
 ./gradlew build
 * view jacoco test coverage reports at path  *
 ./build/reports/jacoco/test/html/index.html
-Refer to [Using JHipster in production][] for more details.
+Note: Only Service and controllers are covered as part of test coverage.
 
 ###### 4. Run the application
 ./gradlew
@@ -39,6 +39,8 @@ Negative tests:
 * try creating an existing user.
 * try sending no employee email.
 
-additional: sonar reports if required:
+###### additional: sonar reports if required:
+
 docker-compose -f src/main/docker/sonar.yml up -d
+
 ./gradlew -Pprod clean test sonarqube
