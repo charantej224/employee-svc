@@ -1,4 +1,4 @@
-1. signup user
+1. signup user - adding user
 
 curl -X POST \
   http://localhost:9094/employee-service/sign-up \
